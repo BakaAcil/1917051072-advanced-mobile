@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:justduit/screen/home_screen.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:justduit/screen/signup_screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -31,9 +32,10 @@ class MyApp extends StatelessWidget {
         // tested with just a hot reload.
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
+        textTheme: GoogleFonts.poppinsTextTheme(),
       ),
       debugShowCheckedModeBanner: false,
-      home: const HomeScreen(),
+      home: SignUpScreen(context),
     );
   }
 }

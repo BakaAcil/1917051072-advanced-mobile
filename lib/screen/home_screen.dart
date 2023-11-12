@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:justduit/models/fitur_model.dart';
 import 'package:justduit/models/promo_model.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -12,6 +13,27 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   var fitur = fiturModels().getFitur();
   var promo = promoModels().getPromo();
+
+  var name = "";
+
+  void getValue() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    if (prefs.containsKey("name")) {
+      setState(() {
+        name = prefs.getString("name")!;
+      });
+    } else {
+      setState(() {
+        name = "User";
+      });
+    }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    getValue();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -44,7 +66,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             style: TextStyle(fontSize: 14, color: Colors.grey),
                           ),
                           Text(
-                            "Shanon",
+                            name,
                             style: TextStyle(
                                 fontSize: 16, fontWeight: FontWeight.bold),
                           ),
@@ -140,7 +162,10 @@ class _HomeScreenState extends State<HomeScreen> {
                           ),
                           Text(
                             fitur[index].name!,
-                            style: TextStyle(fontWeight: FontWeight.bold),
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 12,
+                            ),
                           )
                         ],
                       );
